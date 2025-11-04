@@ -77,7 +77,7 @@ Before you make any changes, make sure the full test suite passes.
 We welcome contributions of all kinds, from bug fixes to feature ideas to documentation improvements.
 
 *   **Found a bug?** Please [open an issue](https://github.com/arialang/aria/issues).
-*   **Want to add a feature?** Check out our [**Contribution Guide**](https://egranata.github.io/aria/CONTRIBUTING.md) for details on our development process and coding standards.
+*   **Want to add a feature?** Check out our [**Contribution Guide**](CONTRIBUTING.md) for details on our development process and coding standards.
 
 By contributing to Aria, you agree that your contributions are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
@@ -85,7 +85,7 @@ Not a Rust developer? Not a problem. You can still help by improving the documen
 
 ## Documentation
 
-The Aria language is documented at [manual.md](https://egranata.github.io/aria/manual.md) and a Standard Library reference can be found at [stdlib.md](https://egranata.github.io/aria/stdlib.md).
+The Aria language is documented at [manual.md](manual.md) and a Standard Library reference can be found at [stdlib.md](stdlib.md).
 
 ## License
 

@@ -22,7 +22,7 @@ Aria is currently versioned at 0.9, indicating that the language is still under 
 
 Aria will reach version 1.0 once all of the following criteria are met:
 
-- all issues marked as "Aria 1.0" in the [issue tracker](https://github.com/egranata/aria/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Aria%201.0%20Roadmap%22) are resolved;
+- all issues marked as "Aria 1.0" in the [issue tracker](https://github.com/arialang/aria/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Aria%201.0%20Roadmap%22) are resolved;
 - the criteria defined in the [roadmap](ROADMAP.md) for the "Very-Short-Term Goal" are met;
 - the core language and standard library are considered stable and usable.
 

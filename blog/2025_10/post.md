@@ -42,8 +42,8 @@ Aria is tightening up for 1.0. This month’s updates make the language cleaner 
 ---
 
 ## Aria Release
-* **Download Aria today** — The latest version [v0.9.20251013](https://github.com/egranata/aria/releases/tag/v0.9.20251013) is available on GitHub, with prebuilt binaries for Linux and macOS.
+* **Download Aria today** — The latest version [v0.9.20251013](https://github.com/arialang/aria/releases/tag/v0.9.20251013) is available on GitHub, with prebuilt binaries for Linux and macOS.
 
-Prefer to build from source? Clone the [repo](https://github.com/egranata/aria) and get the freshest bits.
+Prefer to build from source? Clone the [repo](https://github.com/arialang/aria) and get the freshest bits.
 
 ---

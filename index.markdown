@@ -28,7 +28,7 @@ Aria is currently supported on Linux and macOS. Contributions for other operatin
 
 ## A Taste of Aria
 
-Aria is easy to learn. Here's a [quick example](https://github.com/egranata/aria/examples/github_user.aria) that fetches data from a web API and prints the result. In this example, Aria fetches user data from GitHub’s API and prints the number of public repositories for a given user. This shows how simple it is to interact with external APIs and handle dynamic data in Aria.
+Aria is easy to learn. Here's a [quick example](https://github.com/arialang/aria/examples/github_user.aria) that fetches data from a web API and prints the result. In this example, Aria fetches user data from GitHub’s API and prints the number of public repositories for a given user. This shows how simple it is to interact with external APIs and handle dynamic data in Aria.
 
 Running this sample is as simple as:
 ```shell
@@ -50,7 +50,7 @@ For Git, you can install it via your package manager (e.g. `apt`, `dnf`) or from
 
 1.  Clone the repository:
     ```shell
-    git clone https://github.com/egranata/aria.git
+    git clone https://github.com/arialang/aria.git
     cd aria
     ```
 2.  Build the project using Cargo:
@@ -76,7 +76,7 @@ Before you make any changes, make sure the full test suite passes.
 
 We welcome contributions of all kinds, from bug fixes to feature ideas to documentation improvements.
 
-*   **Found a bug?** Please [open an issue](https://github.com/egranata/aria/issues).
+*   **Found a bug?** Please [open an issue](https://github.com/arialang/aria/issues).
 *   **Want to add a feature?** Check out our [**Contribution Guide**](https://egranata.github.io/aria/CONTRIBUTING.md) for details on our development process and coding standards.
 
 By contributing to Aria, you agree that your contributions are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt).

@@ -15,12 +15,12 @@ This document provides guidelines to help you get started.
 
 There are many ways to contribute, and all of them are valuable.
 
-*   **Reporting Bugs:** If you find a bug, please [open an issue](https://github.com/egranata/aria/issues) and provide as much detail as possible, including the version of Aria you're using (commit hash most likely), your operating system, the code that triggered the bug, and the full error message.
-*   **Suggesting Enhancements:** Have an idea for a new feature or an improvement? Whether it’s a core language change, an optimization, or an update to the standard library, we’d love to hear your suggestions. Please [open an issue](https://github.com/egranata/aria/issues) to start the discussion.
+*   **Reporting Bugs:** If you find a bug, please [open an issue](https://github.com/arialang/aria/issues) and provide as much detail as possible, including the version of Aria you're using (commit hash most likely), your operating system, the code that triggered the bug, and the full error message.
+*   **Suggesting Enhancements:** Have an idea for a new feature or an improvement? Whether it’s a core language change, an optimization, or an update to the standard library, we’d love to hear your suggestions. Please [open an issue](https://github.com/arialang/aria/issues) to start the discussion.
 *   **Improving Documentation:** Great documentation is key. If you see a typo, find something confusing, or think a section is missing, please feel free to open an issue or a pull request.
 *   **Writing Code:** If you're ready to write some code, that's fantastic! Please look for an existing issue that you'd like to work on. If you're thinking of something else that needs worked on, please file a GitHub issue to coordinate your contribution and avoid duplication of effort.
 
-Some issues are labeled [good starter bugs](https://github.com/egranata/aria/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22) or [help wanted](https://github.com/egranata/aria/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22). If you're looking to start contributing to Aria, these could be great starting places.
+Some issues are labeled [good starter bugs](https://github.com/arialang/aria/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22) or [help wanted](https://github.com/arialang/aria/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22). If you're looking to start contributing to Aria, these could be great starting places.
 
 ## Your First Code Contribution
 

@@ -34,13 +34,38 @@ val y = "Hello World";
 val z = 3.14f;
 ```
 
-Variables are mutable. Aria does not provide an immutable value construct.
+It is possible to declare multiple variables in the same statement, as in
+
+```
+val x = 1, y = "Hello World", z = 3.14f;
+```
+
+Variables are mutable. Aria does not provide an immutable value construct. Assignment to a variable looks like most mainstream imperative languages
+
+```
+val x = 1;
+println(x); # prints 1
+x = 2;
+println(x); # prints 2
+```
+
+It is possible to also assign multiple variables in the same statement
+
+```
+val x = 1, y = 2;
+x,y = y,x;
+println(x); # prints 2
+println(y); # prints 1
+```
+
+All the right-hand sides of a multiple assignments are evaluated first, in reverse order, and then they are stored in the left-hand side variables, in order.
 
 Basic arithmetic works as one would expect
 
 ```
+val x = 1;
 println(x + 1); # prints 2
-println(3 + 4 * 5 - 1); # prints 22
+println(3 + 4 * 5 - x); # prints 22
 ```
 
 Integers are signed 64-bit values and they wrap around, e.g.

@@ -28,7 +28,7 @@ Aria is currently supported on Linux and macOS. Contributions for other operatin
 
 ## A Taste of Aria
 
-Aria is easy to learn. Here's a [quick example](https://github.com/arialang/aria/examples/github_user.aria) that fetches data from a web API and prints the result. In this example, Aria fetches user data from GitHub’s API and prints the number of public repositories for a given user. This shows how simple it is to interact with external APIs and handle dynamic data in Aria.
+Aria is easy to learn. Here's a [quick example](https://github.com/arialang/aria/tree/master/examples/github_user.aria) that fetches data from a web API and prints the result. In this example, Aria fetches user data from GitHub’s API and prints the number of public repositories for a given user. This shows how simple it is to interact with external APIs and handle dynamic data in Aria.
 
 Running this sample is as simple as:
 ```shell

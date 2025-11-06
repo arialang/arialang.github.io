@@ -10,7 +10,7 @@ It assumes you have Aria installed, and know how to write code in a text editor 
 
 Aria programs contain a `main` function, defined like
 
-```
+```aria
 func main() {
     # code goes here
 }
@@ -18,7 +18,7 @@ func main() {
 
 A program can contain multiple functions, but execution starts from `main`. A very simple program is the canonical Hello World
 
-```
+```aria
 func main() {
     println("Hello World");
 }
@@ -28,7 +28,7 @@ Save it to `hello.aria` and run it as `aria hello.aria`. It should print `Hello 
 
 To declare a variable, use `val`, as in
 
-```
+```aria
 val x = 1;
 val y = "Hello World";
 val z = 3.14f;
@@ -36,45 +36,45 @@ val z = 3.14f;
 
 It is possible to declare multiple variables in the same statement, as in
 
-```
+```aria
 val x = 1, y = "Hello World", z = 3.14f;
 ```
 
 Variables are mutable. Aria does not provide an immutable value construct. Assignment to a variable looks like most mainstream imperative languages
 
-```
+```aria
 val x = 1;
-println(x); # prints 1
+assert x==1;
 x = 2;
-println(x); # prints 2
+assert x==2;
 ```
 
 It is possible to also assign multiple variables in the same statement
 
-```
+```aria
 val x = 1, y = 2;
 x,y = y,x;
-println(x); # prints 2
-println(y); # prints 1
+assert x==2; # prints 2
+assert y==1; # prints 1
 ```
 
 All the right-hand sides of a multiple assignments are evaluated first, in reverse order, and then they are stored in the left-hand side variables, in order.
 
 Basic arithmetic works as one would expect
 
-```
+```aria
 val x = 1;
-println(x + 1); # prints 2
-println(3 + 4 * 5 - x); # prints 22
+assert x+1==2;
+assert 3 + 4 * 5 - x==22;
 ```
 
 Integers are signed 64-bit values and they wrap around, e.g.
 
-```
+```aria
 func main() {
     val x = 0x7FFFFFFFFFFFFFFF;
-    println(x); # prints 9223372036854775807
-    println(x+1); # prints -9223372036854775808
+    assert x==9223372036854775807;
+    assert x+1==-9223372036854775808;
 }
 ```
 
@@ -82,80 +82,85 @@ func main() {
 
 Lists are a builtin data type in Aria. They are defined by a list literal, e.g.
 
-```
+```aria
 val l = [1, "hello", 3.14f, false];
+assert l[0] == 1;
 ```
 
 A list can contain heterogeneous elements of any Aria type. It is dynamically resizable, by appending new elements:
 
-```
+```aria
+val l = [1, "hello", 3.14f, false];
 l.append(5); # l is now [1, "hello", 3.14f, false, 5];
+assert l.len() == 5;
+assert l[4] == 5;
 ```
 
 The size of a list can be obtained with `l.len()` and individual elements can be indexed directly from 0 to `len()-1`,
 
-```
-println(l[0]); # prints 1
+```aria
+val l = [1, "hello", 3.14f, false];
+assert l[1] == "hello";
 l[1] = "hi there";
-println(l[1]); # prints hi there
+assert l[1] == "hi there";
 ```
 
 Lists can contain other lists
 
-```
-val l = [1,2,3];
-val ll = [l,4];
-println(ll[0][0]); # prints 1
+```aria
+val l = [1,2,3], ll = [l,4];
+assert ll[0][0] == 1;
+assert ll[0][0] == l[0];
 ```
 
 Multidimensional arrays are not provided.
 
 List concatenation uses the `+` operator, so
 
-```
-println([1,2]+[3,4]); # prints [1,2,3,4]
+```aria
+assert [1,2]+[3,4] == [1,2,3,4];
 ```
 
 ## 🧵 Strings
 
 Strings can be concatenated with the `+` operator
 
-```
-println("Hello " + 'World'); # prints Hello World
+```aria
+assert "Hello " + 'World' == "Hello World";
 ```
 
 and string repetition uses the `*` operator
 
-```
-println("Chugga " * 2 + "Choo " * 2); # prints Chugga Chugga Choo Choo
+```aria
+assert "Chugga " * 2 + "Choo " * 2 == "Chugga Chugga Choo Choo ";
 ```
 
 Strings literals can use either `"` or `'` quotes, which makes some constructs easier to write
 
-```
+```aria
 val quote = 'He said "Tu quoque, fili mi?"';
 ```
 
 Strings can also be indexed with square brackets, but only for reading
 
-```
+```aria
 val x = "hello";
-println(x[0]); # prints h
+assert x[0] == "h";
 ```
 
 String offer a formatting function, that allows interploating the values of variables or expression inside text. For example
 
-```
+```aria
 val name = "Eric";
-val year = 2025;
-println("My name is {0} and the year is {1}".format(name, year)); # My name is Eric and the year is 2025
+val year = 2021;
+assert "My name is {0} and I was born in {1}".format(name, year) == "My name is Eric and I was born in 2021";
 ```
 
 ## 🔁 Control Flow
 
 Common control flow statements and operators are available in Aria.
 
-```
+```aria
 val x = 3;
 if x == 3 {
     println("yes!");
@@ -166,7 +171,7 @@ if x == 3 {
 
 Alternative branches of an `if` statement are labeled `elsif`, as in
 
-```
+```aria
 val x = 3;
 if x == 1 {
     println("one");
@@ -183,12 +188,13 @@ There is no need to parenthesize the condition of an `if` clause. The `else` cla
 
 `while` loops also work as expected.
 
-```
+```aria
 val x = 1;
 while x < 10 {
     println(x); # will print 1,2,3...
     x += 1;
 }
+assert x == 10;
 ```
 
 Only boolean values and expressions, can be used in control flow, for example the following is illegal:
@@ -203,48 +209,57 @@ while x {
 
 `for` loops are used to iterate all over a container, for example a list.
 
-```
+```aria
 val l = [2,4,6,8];
+val counter = 0;
 for x in l {
     println(x); # prints 2, 4, 6, 8
+    counter += x;
 }
+assert counter == 20;
 ```
 
 Loops can be exited with `break`, or jump to the next iteration with `continue`, much like in other languages in the C family.
 
 Both `for` and `while` loops can optionally accept an `else` clause, which is executed if the body of the loop is never taken.
 
-```
+```aria
+val or_else = false;
 for x in [] {
     println(x);
 } else {
+    or_else = true;
     println("This list is empty!"); # prints This list is empty
 }
+assert or_else;
 ```
 
-```
+```aria
 val x = 0;
-while x > 0 {
+val or_else = false;
+while x > 1 {
     println("x is positive");
     x -= 1;
 } else {
+    or_else = true;
     println("x is <= 0"); # prints x is <= 0
 }
+assert or_else;
 ```
 
 A ternary operator is provided with very similar behavior to its C counterpart:
 
-```
+```aria
 val num = 3;
 val str = num == 1 ? "one" : num == 2 ? "two" : "three";
-println(str); # prints three
+assert str == "three";
 ```
 
 ## 🧑‍💻 Functions
 
 Functions are defined with the `func` keyword, and can take zero or more arguments. They are invoked in the usual manner, with their name followed by parentheses.
 
-```
+```aria
 func return_answer() {
     return 42;
 }
@@ -254,14 +269,14 @@ func add_numbers(x,y) {
 }
 
 func main() {
-    println(return_answer()); # prints 42
-    println(add_numbers(3,4)); # prints 7
+    assert return_answer() == 42;
+    assert add_numbers(3,4) == 7;
 }
 ```
 
 Functions may not return a value if they are not used as expressions, such as
 
-```
+```aria
 func print_answer() {
     println(42);
 }
@@ -273,7 +288,7 @@ func main() {
 
 Functions can accept 0 or more required arguments, 0 or more optional arguments and possibly a variable number of arguments at the end. Variable arguments are stored in a list provided to the function named `varargs`
 
-```
+```aria
 func add_all_values(x, ...) {
     for arg in varargs {
         x += arg;
@@ -282,27 +297,27 @@ func add_all_values(x, ...) {
 }
 
 func main() {
-    println(add_all_values(1,2,4,6,8)); # prints 21
-    println(add_all_values(5)); # prints 5
+    assert add_all_values(1,2,4,6,8) == 21;
+    assert add_all_values(5) == 5;
 }
 ```
 
 Optional arguments are given by name and a default value
 
-```
+```aria
 func add(x,y=1) {
     return x + y;
 }
 
 func main() {
-    println(add(3)); # prints 4
-    println(add(2,3)); # prints 5
+    assert add(3) == 4;
+    assert add(2,3) == 5;
 }
 ```
 
 Closures are defined with a `|args| => { body }`. Captures (if any) are implicitly handled by the Aria VM
 
-```
+```aria
 func double(x) {
     return x + x;
 }
@@ -314,32 +329,39 @@ func call_f(f, x) {
 func main() {
     val answer = 42;
 
-    println(call_f(double, 12)); # prints 24
-    println(call_f(|x| => { return x + 1; }, 3)); # prints 4
-    println(call_f(|x| => {return x + answer; }, 2)); # prints 44
+    assert call_f(double, 12) == 24;
+    assert call_f(|x| => { return x + 1; }, 3) == 4;
+    assert call_f(|x| => {return x + answer; }, 2) == 44;
 }
 ```
 
 One-line functions are a shorthand form for functions that consist of a single return expression. Instead of writing a full block, you can use = after the declaration:
-```
+
+```aria
 func sum(x, y) = x + y;
+assert sum(3,4) == 7;
+
+func multiply(x,y=2) = x * y;
+assert multiply(5) == 10;
+assert multiply(3,4) == 12;
 ```
+
 This is equivalent to writing a normal function that returns `x+y`.
 
 ## 🧱 Structs
 
 Structs are defined as a set of operations, not data. For example
 
-```
+```aria
 struct Foo {
     func blah() {
-        println("I am a Foo");
+        return "I am a Foo";
     }
 }
 
 func main() {
     val f = alloc(Foo);
-    f.blah();
+    assert f.blah() == 'I am a Foo';
 }
 ```
 
@@ -351,37 +373,37 @@ Instance functions are defined with the same syntax as free functions.  It is no
 
 To access fields (data) on a struct instance, one directly reads or writes the field.
 
-```
+```aria
 struct Foo {
     func blah() {
-        println("I am a Foo - my value is {0}".format(this.x));
+        return "I am a Foo - my value is {0}".format(this.x);
     }
 }
 
 func main() {
     val f = alloc(Foo);
     f.x = 5;
-    f.blah(); # prints I am a Foo - my value is 5
+    assert f.blah() == "I am a Foo - my value is 5";
 }
 ```
 
 It is possible to define methods that interact with the struct type instead of any given instance. For example
 
-```
+```aria
 struct Foo {
     type func blahblah() {
-        println("I am the Foo struct");
+        return "I am the Foo struct";
     }
 }
 
 func main() {
-    Foo.blahblah(); # prints I am the Foo struct
+    assert Foo.blahblah() == "I am the Foo struct";
 }
 ```
 
 The common use of `type` methods is to write constructors for structs
 
-```
+```aria
 struct Foo {
     type func new(x) {
         return alloc(This) {
@@ -390,13 +412,13 @@ struct Foo {
     }
 
     func blah() {
-        println("I am a Foo - my value is {0}".format(this.x));
+        return "I am a Foo - my value is {0}".format(this.x);
     }
 }
 
 func main() {
     val f = Foo.new(5);
-    f.blah(); # prints I am a Foo - my value is 5
+    assert f.blah() == "I am a Foo - my value is 5";
 }
 ```
 
@@ -407,7 +429,7 @@ Structs can contain each other, but not inherit each other.
 
 When printing objects of struct type, if a `prettyprint` method is defined, `format` and `println` call it and expect it to return a string that represents the object.
 
-```
+```aria
 struct Foo {
     type func new(x) {
         return alloc(This) {
@@ -422,6 +444,7 @@ struct Foo {
 
 func main() {
     val f = Foo.new(5);
+    assert f.prettyprint() == 'Foo(5)';
     println(f); # prints Foo(5)
 }
 ```
@@ -430,7 +453,7 @@ func main() {
 
 Enumerations allow describing a closed set of possible values
 
-```
+```aria
 enum TaskStatus {
     case NotStarted,
     case InProgress,
@@ -446,14 +469,10 @@ func main() {
 
 Enumeration cases can also contain a payload. Each case can contain at most one value, which can be of any type, including a struct. It is possible to define structs inside enums, e.g.
 
-```
+```aria
 enum TaskStatus {
     struct BlockedReason {
-        type func new(reason: String) {
-            return alloc(This) {
-                .reason = reason,
-            }
-        };
+        type func new(reason: String) = alloc(This) { .reason };
     }
 
     case NotStarted,
@@ -470,7 +489,7 @@ func main() {
 
 To check if an enumeration value is a specific case, helper `is_X` methods are provided for each case. For cases with payload, `unwrap_X` methods provide the payload, if the value is of that case.
 
-```
+```aria
 enum TaskStatus {
     case NotStarted,
     case InProgress(Int),
@@ -482,9 +501,9 @@ func main() {
     val ts1 = TaskStatus::Completed;
     val ts2 = TaskStatus::InProgress(45);
 
-    println(ts1.is_Blocked()); # prints false
-    println(ts2.is_InProgress()); # prints true
-    println(ts2.unwrap_InProgress()); # prints 45
+    assert !ts1.is_Blocked();
+    assert ts2.is_InProgress();
+    assert ts2.unwrap_InProgress() == 45;
 }
 ```
 
@@ -492,7 +511,7 @@ It is a runtime error to call `unwrap_X` on an enumeration value not representin
 
 One can also use the `match` statement to extract case and value from an enum, for example
 
-```
+```aria
 enum TaskStatus {
     case NotStarted,
     case InProgress(Int),
@@ -520,7 +539,7 @@ The two clauses in `match` above check that ts2 is of type `TaskStatus` and the 
 
 More broadly, a match statement can also be used to check some simple comparisons, for example
 
-```
+```aria
 func main() {
     val x = 3;
 
@@ -537,7 +556,7 @@ func main() {
 
 Valid operators are ==, !=, isa, >, >=, <, >= and they can be combined with `and` clauses:
 
-```
+```aria
 func main() {
     val x = 3;
 
@@ -553,7 +572,7 @@ func main() {
 
 `Maybe` is an enum that represents a potentially missing value. It is defined as
 
-```
+```aria
 enum Maybe {
     case Some(Any),
     case None,
@@ -564,7 +583,7 @@ As an enum, it can be used in `match` or checked with `is_X` helpers. APIs where
 
 `Result` is an enum that represents a successful or failed operation. It is defined as
 
-```
+```aria
 enum Result {
     case Ok(Any),
     case Err(Any),
@@ -585,7 +604,7 @@ Shorthand syntax is provided to extract - or propagate - values from `Maybe` and
 
 Custom types can participate in the "try unwrap protocol", by defining a `_op_try_view` method, which must return a `Result` or a `Maybe`. If the method is not defined, the default behavior is to return `Result::Ok(this)`
 
-```
+```aria
 func might_fail(x) {
     if x > 0 {
         return Result::Ok(x * 2);
@@ -598,12 +617,13 @@ func main() {
     val r1 = might_fail(3);
     val r2 = might_fail(-1);
 
-    println(r1!!); # prints 6
-    println(r2!!); # fails with assertion error ("force unwrap failed")
+    assert r1!! == 6;
+    assert r2.is_Err();
+    assert r2.unwrap_Err() == "x must be positive";
 }
 ```
 
-```
+```aria
 func might_be_missing(x) {
     if x > 0 {
         return Maybe::Some(x * 2);
@@ -616,8 +636,9 @@ func main() {
     val m1 = might_be_missing(3);
     val m2 = might_be_missing(-1);
 
-    println(m1??); # prints 6
-    println(m2??); # returns Result::Err(Unit)
+    assert m1?? == 6;
+    assert m2.is_None();
+    assert m2??.is_None();
 }
 ```
 
@@ -627,7 +648,7 @@ Maps are provided by the Aria standard library. To import the Map data type, use
 
 Values can be inserted into a map by key
 
-```
+```aria
 import Map from aria.structures.map;
 
 func main() {
@@ -639,7 +660,7 @@ func main() {
 
 and retrieved by key
 
-```
+```aria
 import Map from aria.structures.map;
 
 func main() {
@@ -647,13 +668,13 @@ func main() {
     m[1] = "one";
     m[2] = "two";
 
-    println(m[1]); # prints one
+    assert m[1] == "one";
 }
 ```
 
 It is a runtime error to try to retrieve a missing key with the square brackets operator. In that case, use `get`, which returns `Maybe`.
 
-```
+```aria
 import Map from aria.structures.map;
 
 func main() {
@@ -661,13 +682,13 @@ func main() {
     m[1] = "one";
     m[2] = "two";
 
-    println(m.get(3).is_None()); # prints true
+    assert m.get(3).is_None();
 }
 ```
 
 Maps can be iterated with `for` loops, and they return pairs of key and value
 
-```
+```aria
 import Map from aria.structures.map;
 
 func main() {
@@ -675,9 +696,13 @@ func main() {
     m[1] = "one";
     m[2] = "two";
 
+    val all_values = "";
+
     for kvp in m {
         println("key = {0} value = {1}".format(kvp.key, kvp.value)); # prints key = 1 value = one key = 2 value = two
+        all_values += kvp.value + " ";
     }
+    assert all_values == "one two ";
 }
 ```
 
@@ -687,57 +712,68 @@ Custom types can be used as keys in maps, as long as they define a `func hash()`
 
 Aria offers a quick syntax to write multiple values into the same object. Any expression can be followed by a write-list, e.g.
 
-```
+```aria
 val x = [] {
     [0] = 1,
     [1] = 2,
     [2] = 3
 };
+
+assert x[0] == 1;
+assert x[1] == 2;
+assert x[2] == 3;
 ```
 
 will initialize a list with [1, 2, 3].
 
 It can also be done for structs, for example
 
-```
+```aria
 val x = Box() {
     .a = 1,
     .b = 2,
     .c = 3,
 };
+
+assert x.a == 1;
+assert x.b == 2;
+assert x.c == 3;
 ```
 
 which will create an object with fields `a`, `b`, and `c`.
 
 Indices and fields can be freely mixed:
 
-```
+```aria
+import Map from aria.structures.map;
+
 val m = Map.new() {
     ["hello"] = "world",
     .something = "else",
     ["foo"] = "bar",
 };
 
-println(m); # prints Map([foo]->bar, [hello]->world)
-println(m.something); # prints else
+assert m["hello"] == "world";
+assert m["foo"] == "bar";
+assert m.something == "else";
 ```
 
 As a shortcut, a field can be initialized by a local variable of the same name without duplicating the name, as in
 
-```
+```aria
 struct StringWrapper {
     type func new(msg) = alloc(This) { .msg };
 
     func prettyprint() { return this.msg; }
 }
 
-println(StringWrapper.new("hello world")); # prints hello world
+assert StringWrapper.new("hello world").prettyprint() == "hello world";
 ```
 
 This syntax is most often used for initializing objects and containers, but it is generally available:
 
-```
-println("x"{.hello = "world"}.hello); # prints world
+```aria
+assert ("x"{.hello = "world"}.hello) == "world";
 ```
 
 Writes are performed in the order they are provided, and duplicated writes to the same index or name are not discarded. In general, the user should expect a "last write wins" behavior.
@@ -746,7 +782,7 @@ Writes are performed in the order they are provided, and duplicated writes to th
 
 Extensions allow to add new functions to already defined types. They are introduced by the `extension` keyword, and they otherwise look the same as a definition of a type
 
-```
+```aria
 struct Counter {
     type func new() {
         return alloc(This) {
@@ -771,7 +807,7 @@ extension Counter {
 func main() {
     val c = Counter.new();
     c.add(2);
-    println(c.increment()); # prints 3
+    assert c.increment() == 3;
 }
 ```
 
@@ -779,13 +815,11 @@ func main() {
 
 Enums can also be extended the same way
 
-```
+```aria
 enum Temperature {
     case Celsius(Float),
     case Fahrenheit(Float)
-}
 
-extension Temperature {
     func to_f() {
         match this {
             case Fahrenheit => { return this; },
@@ -794,7 +828,9 @@ extension Temperature {
             }
         }
     }
+}
 
+extension Temperature {
     func prettyprint() {
         match this {
             case Fahrenheit(f) => {
@@ -809,7 +845,7 @@ extension Temperature {
 func main() {
     val tmp = Temperature::Celsius(32.0f);
     val tmp_f = tmp.to_f();
-    println(tmp_f); # prints 89.6 F
+    assert tmp_f == Temperature::Fahrenheit(89.6f);
 }
 ```
 
@@ -817,13 +853,13 @@ func main() {
 
 Exceptions can be used to generate out-of-band control flow. Any Aria object can be thrown and caught. Exceptions cause unwinding of the stack until a frame catches, or there are no more frames left, at which point it is handled by the VM itself.
 
-```
+```aria
 func main() {
     try {
         println(9 / 3); # prints 3
         println(2 /0);
     } catch e {
-        println(e); # prints division by zero
+        assert prettyprint(e) == "division by zero";
     }
 }
 ```
@@ -848,7 +884,7 @@ Aria itself defines a set of common exceptions in the `RuntimeError` enum:
 
 These values can be reused by user code, or new exception types can be created. The usual pattern for an exception is to create an ad-hoc struct
 
-```
+```aria
 struct MyException {
     type func new(msg) {
         return alloc(This) {
@@ -935,7 +971,7 @@ The operators that can be overloaded are as follows:
 
 Operators are overloaded by an `operator` declaration:
 
-```
+```aria
 struct Integer {
     type func new(n) {
         return alloc(This){
@@ -960,7 +996,7 @@ struct Integer {
 
 func main() {
     val x = Integer.new(26);
-    println(x % 4); # prints 2
+    assert (x%4).n == 2;
 }
 ```
 
@@ -970,7 +1006,7 @@ Square bracket access is defined by means of `operator [](index)` and `operator 
 
 Defining `operator ()` allows objects to be called as if they are functions, e.g.
 
-```
+```assert
 struct CallMe {
     type func new() { return alloc(This); }
     operator ()(x,y,z) {
@@ -981,13 +1017,13 @@ struct CallMe {
 
 func main() {
     val c = CallMe.new();
-    println(c(1,2,3)); # prints You called me? x=1 y=2 z=3 followed by 6
+    assert c(1,2,3) == 6; # prints You called me? x=1 y=2 z=3 and then returns 6
 }
 ```
 
 Operator definitions generate an implementing function named `_op_impl_<name>`. While this is technically a part of the contract between the compiler and the VM, it is documented here because it can be useful to refer to the function underlying the operator in some cases, e.g. to implement a commutative reverse operator
 
-```
+```aria
 struct Foo {
     operator + (rhs) {
         return 42;
@@ -998,9 +1034,7 @@ struct Foo {
     }
 }
 
-func main() {
-    println(12 + alloc(Foo)); # prints 42
-}
+assert (12 + alloc(Foo)) == 42;
 ```
 
 To help with defining a coherent set of comparison operators, the standard library provides a `TotalOrdering` mixin at `aria.ordering.compare`.
@@ -1009,7 +1043,7 @@ To help with defining a coherent set of comparison operators, the standard libra
 
 A guard is used to create a scoped block that can deallocate some managed resource on exit. Note that a `guard`'s `do` block is not a lexical block, but it accepts a function (or really any callable object) that is invoked with the guarded object as argument. This means that the guarded object can outlive the `do` block if it is returned or stored somewhere else. It also means that the `do` block can capture variables from its caller scope, but these will be treated as captures, not as local variables.
 
-```
+```aria
 import guard from aria.utils.guard;
 
 struct LoggedTask {
@@ -1050,7 +1084,7 @@ If an object needs to execute some custom cleanup, a `guard` block is the right 
 
 Mixins can be used to insert new behavior into existing types. Aria does not provide inheritance, but some cases can instead be expressed via a `mixin`.
 
-```
+```aria
 mixin Double {
     func double(x) {
         return 2 * x;
@@ -1067,13 +1101,13 @@ struct Foo {
 
 func main() {
     val f = Foo.new();
-    println(f.double(5)); # prints 10
+    assert f.double(5) == 10;
 }
 ```
 
 `Foo` includes all the member functions of mixin `Double`. Functions in a mixin can use other functions of their type, or the mixin, and can refer to `this`. At runtime, mixin functions see the type of the object they are included in, not the type of the mixin.
 
-```
+```aria
 mixin Double {
     func double() {
         return 2 * this.x;
@@ -1092,11 +1126,11 @@ struct Foo {
 
 func main() {
     val f = Foo.new(5);
-    println(f.double()); # prints 10
+    assert f.double() == 10;
 }
 ```
 
-```
+```aria
 mixin Double {
     func double() {
         return 2 * this.x;
@@ -1115,8 +1149,8 @@ struct Foo {
 
 func main() {
     val f = Foo.new(5);
-    println(f isa Foo); # prints true
-    #println(f isa Double); # runtime error, the mixin is not a type
+    assert f isa Foo;
+    assert f isa Double;
 }
 ```
 
@@ -1134,7 +1168,7 @@ This mechanism allows for finite or infinite sequences, for values to be pre-com
 
 The `in` expression of a for loop is assumed to be a container of some kind, so the `iterator` method is called on it, and its return is used as the actual iterator.
 
-```
+```aria
 struct SampleIterator {
     type func new() {
         return alloc(This) {
@@ -1165,7 +1199,7 @@ func main() {
 
 Iterators for common types (e.g. Map, List) include the `Iterable` mixin (defined at `aria.iterator.mixin`). This mixin allows using common functional operators on an iterator (`where` (aka `filter`), `map` and `reduce`). Iterators can get pre-written implementations of these behaviors with the `Iterator` mixin from the same module. For example
 
-```
+```aria
 import Iterator from aria.iterator.mixin;
 import Iterable from aria.iterator.mixin;
 
@@ -1240,7 +1274,7 @@ As an example, `aria.rng.xorshift` is defined in `lib/aria/rng/xorshift.aria`. D
 
 A module can be imported more than once, but only the first import will load the module, others will act as a no-op. An import of a module brings that module into the visible set of symbols, and names inside the module can be referenced via a fully-dotted path. For example
 
-```
+```aria
 import aria.rng.xorshift;
 
 func main() {
@@ -1252,7 +1286,7 @@ func main() {
 
 To avoid dotted notation, one can import symbols directly from a module, e.g.
 
-```
+```aria
 import XorshiftRng from aria.rng.xorshift;
 
 func main() {
@@ -1264,7 +1298,7 @@ func main() {
 
 will work exactly the same. It is substantially equivalent to
 
-```
+```aria
 import aria.rng.xorshift;
 
 val XorshiftRng = aria.rng.xorshift.XorshiftRng;

@@ -39,7 +39,7 @@ export default function (hljs) {
             'and', 'case', 'isa', 'instance', 'reverse', 'try', 'catch', 'break', 'continue', 'for'
         ].join(' '),
         literal: 'true false',
-        built_in: 'println assert',
+        built_in: 'alloc arity exit getenv hasattr listattrs print println readattr readln setenv sleep system writeattr',
         type: 'Int Float String Bool Result Maybe Any'
     };
 
@@ -69,33 +69,31 @@ export default function (hljs) {
     const OP_SYM = /\+\-|u\-|\+|\-|\*|\/|%|<<|>>|==|<=|>=|<|>|\&|\||\^|\(\)|\[\]=|\[\]/;
     const OP_DEF = {
         className: 'function',
+        keywords: KEYWORDS,
         begin: new RegExp(`\\b(?:reverse\\s+)?operator\\s+(${OP_SYM.source})\\s*\\(`),
         beginScope: { 1: 'title.function' },
         end: /\)/,
         excludeEnd: true,
-        keywords: KEYWORDS,
         contains: [LINE_COMMENT]
     };
 
     const TYPE_LIKE_DEF = {
         className: 'class',
+        keywords: KEYWORDS,
         variants: [
             { begin: new RegExp(`\\bstruct\\s+(${IDENT.source})\\b`) },
             { begin: new RegExp(`\\benum\\s+(${IDENT.source})\\b`) },
-            { begin: new RegExp(`\\bmixin\\s+(${IDENT.source})\\b`) }
+            { begin: new RegExp(`\\bmixin\\s+(${IDENT.source})\\b`) },
+            { begin: new RegExp(`\\bextension\\s+(${IDENT.source})\\b`) }
         ],
         beginScope: { 1: 'title.class' }
     };
 
-    const EXTENSION_DEF = {
-        begin: new RegExp(`\\bextension\\s+(${IDENT.source})\\b`),
-        beginScope: { 1: 'type' }
-    };
-
     const ENUM_CASE_DECL = {
-        className: 'constant',
-        begin: new RegExp(`\\bcase\\s+(${IDENT.source})\\b`),
-        beginScope: { 1: 'constant' }
+        keywords: KEYWORDS,
+        match: new RegExp(`\\b(case)\\s+(${IDENT.source})\\b`),
+        scope: { 1: 'keyword', 2: 'constant' },
+        relevance: 0
     };
 
     const ENUM_CASE_USE = {
@@ -138,21 +136,37 @@ export default function (hljs) {
     // Continuation lines: ::: ...
     const REPL_CONT = { className: 'meta', begin: /^:::\s?/m, relevance: 0 };
 
+    const BLOCK = {
+        begin: /\{/,
+        end: /\}/,
+        keywords: KEYWORDS,
+        contains: [
+            'self',
+            LINE_COMMENT,
+            DQ_STRING, SQ_STRING,
+            DEC_FLOAT, HEX_INT, OCT_INT, BIN_INT, DEC_INT,
+            LAMBDA_HEAD, TRY_PROTOCOL, ASSIGN_OP, INDEXING,
+            FUNC_DEF, METHOD_DEF, OP_DEF,
+            TYPE_LIKE_DEF,
+            ENUM_CASE_DECL, ENUM_CASE_USE,
+            IMPORTS
+        ],
+        relevance: 0
+    };
+
     return {
         name: 'Aria',
         aliases: ['aria'],
         keywords: KEYWORDS,
         contains: [
-            SHEBANG,
-            REPL_PROMPT, REPL_CONT,
-            LINE_COMMENT,
-            DQ_STRING, SQ_STRING,
+            SHEBANG, REPL_PROMPT, REPL_CONT,
+            LINE_COMMENT, DQ_STRING, SQ_STRING,
             DEC_FLOAT, HEX_INT, OCT_INT, BIN_INT, DEC_INT,
             FUNC_DEF, METHOD_DEF, OP_DEF,
-            TYPE_LIKE_DEF, EXTENSION_DEF,
+            TYPE_LIKE_DEF,
             ENUM_CASE_DECL, ENUM_CASE_USE,
-            LAMBDA_HEAD, TRY_PROTOCOL, ASSIGN_OP,
-            INDEXING,
+            LAMBDA_HEAD, TRY_PROTOCOL, ASSIGN_OP, INDEXING,
+            BLOCK,
             IMPORTS
         ]
     };

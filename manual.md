@@ -1006,7 +1006,7 @@ Square bracket access is defined by means of `operator [](index)` and `operator 
 
 Defining `operator ()` allows objects to be called as if they are functions, e.g.
 
-```assert
+```aria
 struct CallMe {
     type func new() { return alloc(This); }
     operator ()(x,y,z) {

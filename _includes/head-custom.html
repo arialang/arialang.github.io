@@ -6,9 +6,8 @@
 
     hljs.registerLanguage("aria", aria);
 
-    // optional: built-in languages you use elsewhere
-    // import javascript from "https://esm.sh/highlight.js@11/es/languages/javascript";
-    // hljs.registerLanguage("javascript", javascript);
+    import bash from "https://esm.sh/highlight.js@11/es/languages/bash";
+    hljs.registerLanguage("bash", bash);
 
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("pre code").forEach(el => hljs.highlightElement(el));

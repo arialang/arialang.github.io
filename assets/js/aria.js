@@ -125,12 +125,6 @@ export default function (hljs) {
         relevance: 0
     };
 
-    const OBJECT_WRITE = {
-        begin: /\{/, end: /\}/,
-        contains: [LINE_COMMENT, DQ_STRING, SQ_STRING, INDEXING],
-        relevance: 0
-    };
-
     const IMPORTS = {
         begin: /\bimport\b/, end: /;/,
         keywords: KEYWORDS,
@@ -158,7 +152,7 @@ export default function (hljs) {
             TYPE_LIKE_DEF, EXTENSION_DEF,
             ENUM_CASE_DECL, ENUM_CASE_USE,
             LAMBDA_HEAD, TRY_PROTOCOL, ASSIGN_OP,
-            INDEXING, OBJECT_WRITE,
+            INDEXING,
             IMPORTS
         ]
     };

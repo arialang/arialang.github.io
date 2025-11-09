@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github.min.css">
+
+<script type="module">
+    import hljs from "https://esm.sh/highlight.js@11/es/core";
+    import aria from "/assets/js/aria.js";
+
+    hljs.registerLanguage("aria", aria);
+
+    // optional: built-in languages you use elsewhere
+    // import javascript from "https://esm.sh/highlight.js@11/es/languages/javascript";
+    // hljs.registerLanguage("javascript", javascript);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("pre code").forEach(el => hljs.highlightElement(el));
+    });
+</script>

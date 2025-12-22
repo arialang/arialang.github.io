@@ -11,6 +11,8 @@ Expect a monthly **"What's New in Aria"** post, plus occasional deep dives and f
 
 ## Posts
 
+* [What's New in Aria - December 2025](2025_12/post.md)
+
 * [What's New in Aria - November 2025](2025_11/post.md)
 
 * [What's New in Aria - October 2025](2025_10/post.md)

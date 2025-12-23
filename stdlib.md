@@ -1041,9 +1041,9 @@ This module provides a hash map implementation.
     **Methods:**
     *   `type func new()`: Creates a new, empty `Map` with a default capacity.
     *   `type func new_with_capacity(n: Int)`: Creates a new, empty `Map` with a specified initial capacity.
-    *   `set(k, v)`: Sets the value `v` for the key `k`. If the key already exists, its value is overwritten.
+    *   `set(k, v)`: Sets the value `v` for the key `k`. If the key already exists, its value is overwritten. Returns `false` on overwrite, `true` otherwise.
     *   `get(k)`: Retrieves the value for key `k`. Returns `Maybe::Some(value)` if the key exists, otherwise `Maybe::None`.
-    *   `remove(k)`: Removes a key and its associated value from the map.
+    *   `remove(k)`: Removes a key and its associated value from the map. Returns `true` if a value was removed, `false` otherwise.
     *   `contains(k)`: Returns `true` if the map contains the given key, `false` otherwise.
     *   `len()`: Returns the number of key-value pairs in the map.
     *   `keys()`: Returns a `List` of all keys in the map.

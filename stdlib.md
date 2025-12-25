@@ -156,6 +156,8 @@ This module provides extensions to the built-in `List` type.
     *   `join(sep=", ")`: Returns a string representation of the list elements joined by `sep` (or ", " if sep is omitted).
     *   `contains(x)`: Returns `true` if the list contains element `x`, `false` otherwise.
     *   `type func from_function(f, n: Int)`: Creates a new list of length `n`, where each element is the result of calling function `f` with its index.
+    *   `type func filled(x, n: Int)`: Creates a new list of length `n`, where each element is `x`.
+    *   `type func new_with_capacity(n: Int)`: Creates a new list with preallocated storage for `n` elements. If `n` is negative, 0 is used instead.
     *   `op_equals(rhs: List)` (Operator `==`): Compares this list for equality with `rhs`.
     *   `op_add(rhs: List)` (Operator `+`): Returns a new list that is the concatenation of this list and `rhs`.
     *   `quicksort_with_comparator(f)`: Sorts the list in-place using the Quicksort algorithm with a custom comparison function `f`. The function `f(a, b)` should return `true` if `a` should come before `b`.

@@ -1105,6 +1105,54 @@ func main() {
 }
 ```
 
+Mixins can also be included in an extension, e.g.
+
+```aria
+mixin Double {
+    func double(x) {
+        return 2 * x;
+    }
+}
+
+struct Foo {
+    type func new() {
+        return alloc(This);
+    }
+}
+
+extension Foo {
+    include Double
+}
+
+func main() {
+    val f = Foo.new();
+    assert f.double(5) == 10;
+}
+```
+
+A shorthand syntax for `mixin` inclusion is using `:` (similar to how C++ expresses inheritance). For example:
+
+```aria
+mixin Double {
+    func double(x) {
+        return 2 * x;
+    }
+}
+
+struct Foo : Double {
+    type func new() {
+        return alloc(This);
+    }
+}
+
+func main() {
+    val f = Foo.new();
+    assert f.double(5) == 10;
+}
+```
+
+Mixins included with `:` are treated as if included at the very start of the type/extension.
+
 `Foo` includes all the member functions of mixin `Double`. Functions in a mixin can use other functions of their type, or the mixin, and can refer to `this`. At runtime, mixin functions see the type of the object they are included in, not the type of the mixin.
 
 ```aria

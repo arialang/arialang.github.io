@@ -11,7 +11,7 @@ Aria is tightening up for 1.0. This month’s updates make the language cleaner 
 
 * **Result everywhere** – The `Result` type now powers error handling across core libraries, including networking and JSON. Consistent, predictable, idiomatic.
 
-* **Matrix indexing** – Access elements with `matrix[3, 4]` instead of `matrix.get(3, 4)!!`. Clearer, faster, and less boilerplate.
+* **Matrix indexing** – Access elements with `matrix[3, 4]` instead of `matrix.get(3, 4)!`. Clearer, faster, and less boilerplate.
 
 * **Path improvements** – `Path` now exposes creation, modification, and access times, and can compute the common ancestor of two paths.
 

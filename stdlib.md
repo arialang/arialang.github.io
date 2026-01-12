@@ -1240,7 +1240,7 @@ This module provides the implementation for `guard`, a resource management utili
     A wrapper for a managed resource that ensures a cleanup function is called when the guard completes execution.
 
     **Methods:**
-    *   `do(f)`: Runs `f` passing the guarded object as its sole argument. On completion, calls the cleanup function (`guard_exit`) on the guarded object, if one is provided. It returns a `Result` equivalent to `f(...)??`, or re-throws, if `f` throws.
+    *   `do(f)`: Runs `f` passing the guarded object as its sole argument. On completion, calls the cleanup function (`guard_exit`) on the guarded object, if one is provided. It returns a `Result` equivalent to `f(...)?`, or re-throws, if `f` throws.
 
 ---
 # Built-in Values

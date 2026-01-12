@@ -9,7 +9,7 @@ This month brings a collection of quality-of-life improvements across the standa
 
 ## Standard Library
 
-* **unwrap operators for `Maybe`** – The `Maybe` type now supports `!!` and `??` operators for unwrapping values.
+* **unwrap operators for `Maybe`** – The `Maybe` type now supports `!` and `?` operators for unwrapping values.
 
 * **`Path.glob`** – `Path` now exposes a `glob` method for pattern-based file discovery, enabling easier directory traversal and scripted tooling.
 

@@ -596,11 +596,11 @@ While `Maybe` is intended to convey the (non-)existence of a value, `Result` is 
 
 To convert an exception into a `Result`, use `Result.new_with_try`, which takes a closure that may throw, and returns a `Result`. To convert a `Result` into an exception, use `Result.or_throw`, which returns the value of the `Ok` case, or throws the value of the `Err` case.
 
-Shorthand syntax is provided to extract - or propagate - values from `Maybe` and `Result`, the `??` and `!!` operators. 
+Shorthand syntax is provided to extract - or propagate - values from `Maybe` and `Result`, the `?` and `!` operators.
 
-`x??` is equivalent to `val` if the object is `Result::Ok(val)` or `Maybe::Some(val)`. If the object is a `Result::Err(err)` or `Maybe::None`, it is equivalent to `return x;` from the current function.
+`x?` is equivalent to `val` if the object is `Result::Ok(val)` or `Maybe::Some(val)`. If the object is a `Result::Err(err)` or `Maybe::None`, it is equivalent to `return x;` from the current function.
 
-`x!!` has the same behavior, but instead of returning it will assert on `Err` or `None` cases.
+`x!` has the same behavior, but instead of returning it will assert on `Err` or `None` cases.
 
 Custom types can participate in the "try unwrap protocol", by defining a `_op_try_view` method, which must return a `Result` or a `Maybe`. If the method is not defined, the default behavior is to return `Result::Ok(this)`
 
@@ -617,7 +617,7 @@ func main() {
     val r1 = might_fail(3);
     val r2 = might_fail(-1);
 
-    assert r1!! == 6;
+    assert r1! == 6;
     assert r2.is_Err();
     assert r2.unwrap_Err() == "x must be positive";
 }
@@ -636,9 +636,9 @@ func main() {
     val m1 = might_be_missing(3);
     val m2 = might_be_missing(-1);
 
-    assert m1?? == 6;
+    assert m1? == 6;
     assert m2.is_None();
-    assert m2??.is_None();
+    assert m2?.is_None();
 }
 ```
 

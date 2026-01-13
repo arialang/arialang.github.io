@@ -642,6 +642,15 @@ func main() {
 }
 ```
 
+The `??` allows unwrapping with a fallback default. `x ?? y` is equivalent to `x?` if `x?` succeeds, otherwise to `y`. For example
+
+```aria
+import ok, err from aria.core.result;
+
+assert (ok(5) ?? 10) == 5;
+assert (err("oh no!") ?? 10) == 10;
+```
+
 ## 🗺️ Maps
 
 Maps are provided by the Aria standard library. To import the Map data type, use `import Map from aria.structures.map;`. This gives access to the `Map` data type.

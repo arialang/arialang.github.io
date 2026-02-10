@@ -2,6 +2,8 @@
 
 Welcome to the official documentation for the Aria project.
 
+For the latest update please read [this post](blog/2026_02/post.md).
+
 ## Table of Contents
 
 *   [Manual](manual.md)
